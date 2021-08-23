@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import DatePicker from './DatePicker/DatePicker';
+import Button from './Button/Button';
+import styles from './App.module.css';
 
-function App() {
+const App = () => {
+  const [showCheckIn, setShowCheckIn] = useState(false);
+  const [showCheckOut, setShowCheckOut] = useState(false);
+
+  const handleCheckInClick = () => {
+    setShowCheckIn(!showCheckIn);
+  };
+
+  const handleCheckOutClick = () => {
+    setShowCheckOut(!showCheckOut);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.pageBody}>
+      <div className={styles.app}>
+        <div className={styles.calendars}>
+          <div className={styles.container}>
+            <Button title="Check In" onClick={handleCheckInClick} />
+            <DatePicker isVisible={showCheckIn} />
+          </div>
+          <div className={styles.container}>
+            <Button title="Check Out" onClick={handleCheckOutClick} />
+            <DatePicker isVisible={showCheckOut} />
+          </div>
+        </div>
+      </div>
+      <div className={styles.background}></div>
     </div>
   );
-}
+};
 
 export default App;
