@@ -5,6 +5,13 @@
   font-family: sans-serif;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .box {
   position: relative;
   z-index: 1000;
@@ -23,7 +30,7 @@
 
 .container {
   transition: all 0.5s ease-in-out;
-  width: 400px !important;
+  width: 500px !important;
   position: relative;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
@@ -42,23 +49,50 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
 }
 
 .calendarRow {
   display: flex;
   flex-direction: row;
-  width: 100%;
   height: 40px;
+  align-items: center;
 }
 
 .calendarItem {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 40px !important;
+  width: 40px !important;
+  margin: 0px 5px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
 
-  height: 40px;
-  width: calc(100% / 7);
+.calendarItemDisabled {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px !important;
+  width: 40px !important;
+  margin: 0px 5px;
+}
+
+.calendarDayInitial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px !important;
+  width: 40px !important;
+  margin: 0px 5px;
+  cursor: initial;
+}
+
+.calendarItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 5px;
 }
 
 .calendarTopContainer {
@@ -76,6 +110,28 @@
   align-items: center;
   width: 2rem;
   background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendarBetweenDate {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkInDate {
+  background: rgba(255, 255, 255, 0.5);
   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
