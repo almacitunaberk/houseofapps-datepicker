@@ -4,10 +4,6 @@ import styles from './DatePicker.module.css';
 import Button from '../Button/Button';
 
 const DatePicker = () => {
-  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
-  const [checkInTitle, setCheckInTitle] = useState('Check In');
-  const [checkOutTitle, setCheckOutTitle] = useState('Check Out');
-  useEffect(() => {}, [isCalendarVisible]);
   const date = new Date();
   const [checkInDate, setCheckInDate] = useState({
     day: date.getDate(),
@@ -15,6 +11,8 @@ const DatePicker = () => {
     month: date.getMonth(),
     comparisonIndex: date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate(),
   });
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+  const [checkInTitle, setCheckInTitle] = useState(`${checkInDate.day}-${checkInDate.month}-${checkInDate.year}`);
   const coDate = new Date();
   coDate.setDate(date.getDate() + 5);
   const [checkOutDate, setCheckOutDate] = useState({
@@ -23,6 +21,8 @@ const DatePicker = () => {
     month: coDate.getMonth(),
     comparisonIndex: coDate.getFullYear() * 10000 + coDate.getMonth() * 100 + coDate.getDate(),
   });
+  const [checkOutTitle, setCheckOutTitle] = useState(`${checkOutDate.day}-${checkOutDate.month}-${checkOutDate.year}`);
+
   const [selectionType, setSelectionType] = useState('IN');
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
@@ -79,12 +79,18 @@ const DatePicker = () => {
   const calendarData = getDaysArray(year, month);
 
   const handleDateSelection = (e, dayData) => {
-    if (selectionType === 'IN') {
+    if (dayData.comparisonIndex < checkInDate.comparisonIndex) {
       setCheckInDate(dayData);
+      setCheckInTitle(`${dayData.day}-${dayData.month}-${dayData.year}`);
+      setSelectionType('OUT');
+    } else if (dayData.comparisonIndex > checkOutDate.comparisonIndex) {
       setCheckOutDate(dayData);
+      setCheckOutTitle(`${dayData.day}-${dayData.month}-${dayData.year}`);
+      setSelectionType('IN');
+    } else if (selectionType === 'IN') {
+      setCheckInDate(dayData);
       setSelectionType('OUT');
       setCheckInTitle(`${dayData.day}-${dayData.month}-${dayData.year}`);
-      setCheckOutTitle(`${dayData.day}-${dayData.month}-${dayData.year}`);
     } else if (selectionType === 'OUT') {
       setCheckOutDate(dayData);
       setSelectionType('IN');
@@ -110,11 +116,21 @@ const DatePicker = () => {
     }
   };
 
+  const checkInButtonClicked = () => {
+    setIsCalendarVisible(!isCalendarVisible);
+  };
+
+  const checkOutButtonClicked = () => {
+    setIsCalendarVisible(!isCalendarVisible);
+  };
+
+  useEffect(() => {}, [isCalendarVisible]);
+
   return (
     <>
       <div className={styles.buttons}>
-        <Button title={checkInTitle} onClick={() => setIsCalendarVisible(!isCalendarVisible)} />
-        <Button title={checkOutTitle} onClick={() => setIsCalendarVisible(!isCalendarVisible)} />
+        <Button title={checkInTitle} onClick={checkInButtonClicked} />
+        <Button title={checkOutTitle} onClick={checkOutButtonClicked} />
       </div>
       <section>
         <div className={styles.box}>
